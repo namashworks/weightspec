@@ -1,0 +1,5 @@
+* text=auto eol=lf
+*.wspec binary
+*.safetensors binary
+*.npz binary
+*.png binary
