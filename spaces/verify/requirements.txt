@@ -1,0 +1,1 @@
+weightspec[tokenizers]>=0.1.0a1

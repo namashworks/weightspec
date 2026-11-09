@@ -1,0 +1,114 @@
+{
+  "wspec": "0.1",
+  "name": "qwen3.5-0.8b-math-doubt-column",
+  "description": "Subtract the doubt-minus-progress readout direction from MLP unit 507 of layer 23.",
+  "base": {
+    "source": "hf://Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "arch": "qwen3_5_text",
+    "tensors": {
+      "model.language_model.layers.23.mlp.down_proj.weight": "1866748ce87d32cfee34891d2fa393fdfeee77447935f6a31d036e4b80332a48"
+    }
+  },
+  "numerics": {
+    "directions": "F64",
+    "compute": "F32",
+    "store": "native",
+    "rounding": "nearest-even"
+  },
+  "ops": [
+    {
+      "target": "layer[23].mlp.down.col[507]",
+      "note": "Eq. 3, alpha = 1",
+      "op": "add",
+      "u": {
+        "fn": "normalize",
+        "of": {
+          "fn": "sum",
+          "terms": [
+            {
+              "fn": "readout",
+              "ids": [
+                13784,
+                10883,
+                3850,
+                20734,
+                30442
+              ],
+              "tokens": [
+                "Wait",
+                "However",
+                "But",
+                "Maybe",
+                "Perhaps"
+              ],
+              "reduce": "mean"
+            },
+            {
+              "fn": "readout",
+              "ids": [
+                52971,
+                43022,
+                4272,
+                6820,
+                760,
+                5170,
+                5666,
+                9764
+              ],
+              "tokens": [
+                "Therefore",
+                "Thus",
+                "So",
+                "Now",
+                "The",
+                "First",
+                "Next",
+                "Let"
+              ],
+              "reduce": "mean"
+            }
+          ],
+          "coefs": [
+            1.0,
+            -1.0
+          ]
+        }
+      },
+      "alpha": -1.0,
+      "along": "auto"
+    }
+  ],
+  "result": {
+    "changed": 1023,
+    "tensors": {
+      "model.language_model.layers.23.mlp.down_proj.weight": {
+        "dtype": "BF16",
+        "shape": [
+          1024,
+          3584
+        ],
+        "changed": 1023,
+        "sha256": "a5ce640d469f92b51555bb562b9f8a5d5d81bd21b8335c4a0c9336515328445c"
+      }
+    },
+    "targets": {
+      "layer[23].mlp.down.col[507]": "model.language_model.layers.23.mlp.down_proj.weight[:, 507] (1024, 1)"
+    }
+  },
+  "provenance": {
+    "authors": [
+      "Hu et al. (2026)"
+    ],
+    "editor": "agent:GPT-6 Astra",
+    "method": "single-column write edit",
+    "access_level": "weights+50fwd",
+    "cites": [
+      "arXiv:2611.09382"
+    ],
+    "evidence": [],
+    "license": "CC-BY-4.0",
+    "created": "2026-11-09T12:39:34+00:00",
+    "tool": "weightspec 0.1.0a1"
+  }
+}

@@ -1,0 +1,1312 @@
+{
+  "$defs": {
+    "Add": {
+      "additionalProperties": false,
+      "properties": {
+        "target": {
+          "title": "Target",
+          "type": "string"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        },
+        "op": {
+          "const": "add",
+          "default": "add",
+          "title": "Op",
+          "type": "string"
+        },
+        "u": {
+          "discriminator": {
+            "mapping": {
+              "embedding": "#/$defs/Tokens",
+              "normalize": "#/$defs/Normalize",
+              "payload": "#/$defs/Payload",
+              "project_off": "#/$defs/ProjectOff",
+              "random_orthogonal": "#/$defs/RandomOrthogonal",
+              "readout": "#/$defs/Tokens",
+              "scale": "#/$defs/Scaled",
+              "sum": "#/$defs/Sum",
+              "weights": "#/$defs/Weights"
+            },
+            "propertyName": "fn"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/Tokens"
+            },
+            {
+              "$ref": "#/$defs/Weights"
+            },
+            {
+              "$ref": "#/$defs/Payload"
+            },
+            {
+              "$ref": "#/$defs/Sum"
+            },
+            {
+              "$ref": "#/$defs/Scaled"
+            },
+            {
+              "$ref": "#/$defs/Normalize"
+            },
+            {
+              "$ref": "#/$defs/ProjectOff"
+            },
+            {
+              "$ref": "#/$defs/RandomOrthogonal"
+            }
+          ],
+          "title": "U"
+        },
+        "alpha": {
+          "default": 1.0,
+          "title": "Alpha",
+          "type": "number"
+        },
+        "along": {
+          "default": "auto",
+          "enum": [
+            "auto",
+            "cols",
+            "rows"
+          ],
+          "title": "Along",
+          "type": "string"
+        }
+      },
+      "required": [
+        "target",
+        "u"
+      ],
+      "title": "Add",
+      "type": "object"
+    },
+    "BaseRef": {
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "description": "hf://<repo>, file://<path>, memory or torch",
+          "title": "Source",
+          "type": "string"
+        },
+        "revision": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "immutable commit sha for Hub sources",
+          "title": "Revision"
+        },
+        "arch": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Arch"
+        },
+        "tensors": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "sha256 of each edited tensor before the edit",
+          "title": "Tensors",
+          "type": "object"
+        }
+      },
+      "required": [
+        "source"
+      ],
+      "title": "BaseRef",
+      "type": "object"
+    },
+    "Delta": {
+      "additionalProperties": false,
+      "properties": {
+        "target": {
+          "title": "Target",
+          "type": "string"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        },
+        "op": {
+          "const": "delta",
+          "default": "delta",
+          "title": "Op",
+          "type": "string"
+        },
+        "payload": {
+          "title": "Payload",
+          "type": "string"
+        },
+        "alpha": {
+          "default": 1.0,
+          "title": "Alpha",
+          "type": "number"
+        }
+      },
+      "required": [
+        "target",
+        "payload"
+      ],
+      "title": "Delta",
+      "type": "object"
+    },
+    "Normalize": {
+      "additionalProperties": false,
+      "properties": {
+        "fn": {
+          "const": "normalize",
+          "default": "normalize",
+          "title": "Fn",
+          "type": "string"
+        },
+        "of": {
+          "discriminator": {
+            "mapping": {
+              "embedding": "#/$defs/Tokens",
+              "normalize": "#/$defs/Normalize",
+              "payload": "#/$defs/Payload",
+              "project_off": "#/$defs/ProjectOff",
+              "random_orthogonal": "#/$defs/RandomOrthogonal",
+              "readout": "#/$defs/Tokens",
+              "scale": "#/$defs/Scaled",
+              "sum": "#/$defs/Sum",
+              "weights": "#/$defs/Weights"
+            },
+            "propertyName": "fn"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/Tokens"
+            },
+            {
+              "$ref": "#/$defs/Weights"
+            },
+            {
+              "$ref": "#/$defs/Payload"
+            },
+            {
+              "$ref": "#/$defs/Sum"
+            },
+            {
+              "$ref": "#/$defs/Scaled"
+            },
+            {
+              "$ref": "#/$defs/Normalize"
+            },
+            {
+              "$ref": "#/$defs/ProjectOff"
+            },
+            {
+              "$ref": "#/$defs/RandomOrthogonal"
+            }
+          ],
+          "title": "Of"
+        }
+      },
+      "required": [
+        "of"
+      ],
+      "title": "Normalize",
+      "type": "object"
+    },
+    "Numerics": {
+      "additionalProperties": false,
+      "properties": {
+        "directions": {
+          "const": "F64",
+          "default": "F64",
+          "title": "Directions",
+          "type": "string"
+        },
+        "compute": {
+          "const": "F32",
+          "default": "F32",
+          "title": "Compute",
+          "type": "string"
+        },
+        "store": {
+          "const": "native",
+          "default": "native",
+          "title": "Store",
+          "type": "string"
+        },
+        "rounding": {
+          "const": "nearest-even",
+          "default": "nearest-even",
+          "title": "Rounding",
+          "type": "string"
+        }
+      },
+      "title": "Numerics",
+      "type": "object"
+    },
+    "Payload": {
+      "additionalProperties": false,
+      "description": "An explicit vector stored in the patch's ``tensors.safetensors``.",
+      "properties": {
+        "fn": {
+          "const": "payload",
+          "default": "payload",
+          "title": "Fn",
+          "type": "string"
+        },
+        "key": {
+          "title": "Key",
+          "type": "string"
+        }
+      },
+      "required": [
+        "key"
+      ],
+      "title": "Payload",
+      "type": "object"
+    },
+    "ProjectOff": {
+      "additionalProperties": false,
+      "description": "Remove the components along span(``span``): ``x - B B\u1d40 x`` with B an orthonormal basis (QR).",
+      "properties": {
+        "fn": {
+          "const": "project_off",
+          "default": "project_off",
+          "title": "Fn",
+          "type": "string"
+        },
+        "of": {
+          "discriminator": {
+            "mapping": {
+              "embedding": "#/$defs/Tokens",
+              "normalize": "#/$defs/Normalize",
+              "payload": "#/$defs/Payload",
+              "project_off": "#/$defs/ProjectOff",
+              "random_orthogonal": "#/$defs/RandomOrthogonal",
+              "readout": "#/$defs/Tokens",
+              "scale": "#/$defs/Scaled",
+              "sum": "#/$defs/Sum",
+              "weights": "#/$defs/Weights"
+            },
+            "propertyName": "fn"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/Tokens"
+            },
+            {
+              "$ref": "#/$defs/Weights"
+            },
+            {
+              "$ref": "#/$defs/Payload"
+            },
+            {
+              "$ref": "#/$defs/Sum"
+            },
+            {
+              "$ref": "#/$defs/Scaled"
+            },
+            {
+              "$ref": "#/$defs/Normalize"
+            },
+            {
+              "$ref": "#/$defs/ProjectOff"
+            },
+            {
+              "$ref": "#/$defs/RandomOrthogonal"
+            }
+          ],
+          "title": "Of"
+        },
+        "span": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "embedding": "#/$defs/Tokens",
+                "normalize": "#/$defs/Normalize",
+                "payload": "#/$defs/Payload",
+                "project_off": "#/$defs/ProjectOff",
+                "random_orthogonal": "#/$defs/RandomOrthogonal",
+                "readout": "#/$defs/Tokens",
+                "scale": "#/$defs/Scaled",
+                "sum": "#/$defs/Sum",
+                "weights": "#/$defs/Weights"
+              },
+              "propertyName": "fn"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/Tokens"
+              },
+              {
+                "$ref": "#/$defs/Weights"
+              },
+              {
+                "$ref": "#/$defs/Payload"
+              },
+              {
+                "$ref": "#/$defs/Sum"
+              },
+              {
+                "$ref": "#/$defs/Scaled"
+              },
+              {
+                "$ref": "#/$defs/Normalize"
+              },
+              {
+                "$ref": "#/$defs/ProjectOff"
+              },
+              {
+                "$ref": "#/$defs/RandomOrthogonal"
+              }
+            ]
+          },
+          "title": "Span",
+          "type": "array"
+        }
+      },
+      "required": [
+        "of",
+        "span"
+      ],
+      "title": "ProjectOff",
+      "type": "object"
+    },
+    "ProjectScale": {
+      "additionalProperties": false,
+      "description": "Multiply the component of the block along unit direction \u00fb by (1 \u2212 k); keep the rest.\n\nk=1 removes the component, k=2 reflects it, k=7 multiplies it by \u22126.",
+      "properties": {
+        "target": {
+          "title": "Target",
+          "type": "string"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        },
+        "op": {
+          "const": "project_scale",
+          "default": "project_scale",
+          "title": "Op",
+          "type": "string"
+        },
+        "u": {
+          "discriminator": {
+            "mapping": {
+              "embedding": "#/$defs/Tokens",
+              "normalize": "#/$defs/Normalize",
+              "payload": "#/$defs/Payload",
+              "project_off": "#/$defs/ProjectOff",
+              "random_orthogonal": "#/$defs/RandomOrthogonal",
+              "readout": "#/$defs/Tokens",
+              "scale": "#/$defs/Scaled",
+              "sum": "#/$defs/Sum",
+              "weights": "#/$defs/Weights"
+            },
+            "propertyName": "fn"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/Tokens"
+            },
+            {
+              "$ref": "#/$defs/Weights"
+            },
+            {
+              "$ref": "#/$defs/Payload"
+            },
+            {
+              "$ref": "#/$defs/Sum"
+            },
+            {
+              "$ref": "#/$defs/Scaled"
+            },
+            {
+              "$ref": "#/$defs/Normalize"
+            },
+            {
+              "$ref": "#/$defs/ProjectOff"
+            },
+            {
+              "$ref": "#/$defs/RandomOrthogonal"
+            }
+          ],
+          "title": "U"
+        },
+        "k": {
+          "title": "K",
+          "type": "number"
+        },
+        "side": {
+          "default": "left",
+          "enum": [
+            "left",
+            "right"
+          ],
+          "title": "Side",
+          "type": "string"
+        }
+      },
+      "required": [
+        "target",
+        "u",
+        "k"
+      ],
+      "title": "ProjectScale",
+      "type": "object"
+    },
+    "Provenance": {
+      "additionalProperties": true,
+      "properties": {
+        "authors": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Authors",
+          "type": "array"
+        },
+        "editor": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "human | agent:<model> | program:<name> | diff",
+          "title": "Editor"
+        },
+        "method": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Method"
+        },
+        "access_level": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "e.g. weights-only, weights+50fwd",
+          "title": "Access Level"
+        },
+        "cites": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Cites",
+          "type": "array"
+        },
+        "evidence": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence",
+          "type": "array"
+        },
+        "license": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "License"
+        },
+        "created": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Created"
+        },
+        "tool": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tool"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Notes"
+        }
+      },
+      "title": "Provenance",
+      "type": "object"
+    },
+    "RandomOrthogonal": {
+      "additionalProperties": false,
+      "description": "A seeded Gaussian direction, projected off ``like`` (and ``also_off``), with ``like``'s norm.\n\nThis is the 'equal-norm random direction' control used to show an edit is specific.",
+      "properties": {
+        "fn": {
+          "const": "random_orthogonal",
+          "default": "random_orthogonal",
+          "title": "Fn",
+          "type": "string"
+        },
+        "like": {
+          "discriminator": {
+            "mapping": {
+              "embedding": "#/$defs/Tokens",
+              "normalize": "#/$defs/Normalize",
+              "payload": "#/$defs/Payload",
+              "project_off": "#/$defs/ProjectOff",
+              "random_orthogonal": "#/$defs/RandomOrthogonal",
+              "readout": "#/$defs/Tokens",
+              "scale": "#/$defs/Scaled",
+              "sum": "#/$defs/Sum",
+              "weights": "#/$defs/Weights"
+            },
+            "propertyName": "fn"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/Tokens"
+            },
+            {
+              "$ref": "#/$defs/Weights"
+            },
+            {
+              "$ref": "#/$defs/Payload"
+            },
+            {
+              "$ref": "#/$defs/Sum"
+            },
+            {
+              "$ref": "#/$defs/Scaled"
+            },
+            {
+              "$ref": "#/$defs/Normalize"
+            },
+            {
+              "$ref": "#/$defs/ProjectOff"
+            },
+            {
+              "$ref": "#/$defs/RandomOrthogonal"
+            }
+          ],
+          "title": "Like"
+        },
+        "seed": {
+          "title": "Seed",
+          "type": "integer"
+        },
+        "also_off": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "embedding": "#/$defs/Tokens",
+                "normalize": "#/$defs/Normalize",
+                "payload": "#/$defs/Payload",
+                "project_off": "#/$defs/ProjectOff",
+                "random_orthogonal": "#/$defs/RandomOrthogonal",
+                "readout": "#/$defs/Tokens",
+                "scale": "#/$defs/Scaled",
+                "sum": "#/$defs/Sum",
+                "weights": "#/$defs/Weights"
+              },
+              "propertyName": "fn"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/Tokens"
+              },
+              {
+                "$ref": "#/$defs/Weights"
+              },
+              {
+                "$ref": "#/$defs/Payload"
+              },
+              {
+                "$ref": "#/$defs/Sum"
+              },
+              {
+                "$ref": "#/$defs/Scaled"
+              },
+              {
+                "$ref": "#/$defs/Normalize"
+              },
+              {
+                "$ref": "#/$defs/ProjectOff"
+              },
+              {
+                "$ref": "#/$defs/RandomOrthogonal"
+              }
+            ]
+          },
+          "title": "Also Off",
+          "type": "array"
+        }
+      },
+      "required": [
+        "like",
+        "seed"
+      ],
+      "title": "RandomOrthogonal",
+      "type": "object"
+    },
+    "Rank1": {
+      "additionalProperties": false,
+      "properties": {
+        "target": {
+          "title": "Target",
+          "type": "string"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        },
+        "op": {
+          "const": "rank1",
+          "default": "rank1",
+          "title": "Op",
+          "type": "string"
+        },
+        "u": {
+          "discriminator": {
+            "mapping": {
+              "embedding": "#/$defs/Tokens",
+              "normalize": "#/$defs/Normalize",
+              "payload": "#/$defs/Payload",
+              "project_off": "#/$defs/ProjectOff",
+              "random_orthogonal": "#/$defs/RandomOrthogonal",
+              "readout": "#/$defs/Tokens",
+              "scale": "#/$defs/Scaled",
+              "sum": "#/$defs/Sum",
+              "weights": "#/$defs/Weights"
+            },
+            "propertyName": "fn"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/Tokens"
+            },
+            {
+              "$ref": "#/$defs/Weights"
+            },
+            {
+              "$ref": "#/$defs/Payload"
+            },
+            {
+              "$ref": "#/$defs/Sum"
+            },
+            {
+              "$ref": "#/$defs/Scaled"
+            },
+            {
+              "$ref": "#/$defs/Normalize"
+            },
+            {
+              "$ref": "#/$defs/ProjectOff"
+            },
+            {
+              "$ref": "#/$defs/RandomOrthogonal"
+            }
+          ],
+          "title": "U"
+        },
+        "v": {
+          "discriminator": {
+            "mapping": {
+              "embedding": "#/$defs/Tokens",
+              "normalize": "#/$defs/Normalize",
+              "payload": "#/$defs/Payload",
+              "project_off": "#/$defs/ProjectOff",
+              "random_orthogonal": "#/$defs/RandomOrthogonal",
+              "readout": "#/$defs/Tokens",
+              "scale": "#/$defs/Scaled",
+              "sum": "#/$defs/Sum",
+              "weights": "#/$defs/Weights"
+            },
+            "propertyName": "fn"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/Tokens"
+            },
+            {
+              "$ref": "#/$defs/Weights"
+            },
+            {
+              "$ref": "#/$defs/Payload"
+            },
+            {
+              "$ref": "#/$defs/Sum"
+            },
+            {
+              "$ref": "#/$defs/Scaled"
+            },
+            {
+              "$ref": "#/$defs/Normalize"
+            },
+            {
+              "$ref": "#/$defs/ProjectOff"
+            },
+            {
+              "$ref": "#/$defs/RandomOrthogonal"
+            }
+          ],
+          "title": "V"
+        },
+        "alpha": {
+          "default": 1.0,
+          "title": "Alpha",
+          "type": "number"
+        }
+      },
+      "required": [
+        "target",
+        "u",
+        "v"
+      ],
+      "title": "Rank1",
+      "type": "object"
+    },
+    "Result": {
+      "additionalProperties": false,
+      "properties": {
+        "changed": {
+          "description": "stored values that differ from the base, counted bit for bit",
+          "title": "Changed",
+          "type": "integer"
+        },
+        "tensors": {
+          "additionalProperties": {
+            "$ref": "#/$defs/TensorResult"
+          },
+          "title": "Tensors",
+          "type": "object"
+        },
+        "targets": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "selector -> resolved tensor block",
+          "title": "Targets",
+          "type": "object"
+        }
+      },
+      "required": [
+        "changed",
+        "tensors"
+      ],
+      "title": "Result",
+      "type": "object"
+    },
+    "Scale": {
+      "additionalProperties": false,
+      "properties": {
+        "target": {
+          "title": "Target",
+          "type": "string"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        },
+        "op": {
+          "const": "scale",
+          "default": "scale",
+          "title": "Op",
+          "type": "string"
+        },
+        "factor": {
+          "title": "Factor",
+          "type": "number"
+        }
+      },
+      "required": [
+        "target",
+        "factor"
+      ],
+      "title": "Scale",
+      "type": "object"
+    },
+    "Scaled": {
+      "additionalProperties": false,
+      "properties": {
+        "fn": {
+          "const": "scale",
+          "default": "scale",
+          "title": "Fn",
+          "type": "string"
+        },
+        "of": {
+          "discriminator": {
+            "mapping": {
+              "embedding": "#/$defs/Tokens",
+              "normalize": "#/$defs/Normalize",
+              "payload": "#/$defs/Payload",
+              "project_off": "#/$defs/ProjectOff",
+              "random_orthogonal": "#/$defs/RandomOrthogonal",
+              "readout": "#/$defs/Tokens",
+              "scale": "#/$defs/Scaled",
+              "sum": "#/$defs/Sum",
+              "weights": "#/$defs/Weights"
+            },
+            "propertyName": "fn"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/Tokens"
+            },
+            {
+              "$ref": "#/$defs/Weights"
+            },
+            {
+              "$ref": "#/$defs/Payload"
+            },
+            {
+              "$ref": "#/$defs/Sum"
+            },
+            {
+              "$ref": "#/$defs/Scaled"
+            },
+            {
+              "$ref": "#/$defs/Normalize"
+            },
+            {
+              "$ref": "#/$defs/ProjectOff"
+            },
+            {
+              "$ref": "#/$defs/RandomOrthogonal"
+            }
+          ],
+          "title": "Of"
+        },
+        "by": {
+          "title": "By",
+          "type": "number"
+        }
+      },
+      "required": [
+        "of",
+        "by"
+      ],
+      "title": "Scaled",
+      "type": "object"
+    },
+    "Set": {
+      "additionalProperties": false,
+      "properties": {
+        "target": {
+          "title": "Target",
+          "type": "string"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        },
+        "op": {
+          "const": "set",
+          "default": "set",
+          "title": "Op",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        },
+        "payload": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Payload"
+        }
+      },
+      "required": [
+        "target"
+      ],
+      "title": "Set",
+      "type": "object"
+    },
+    "Sum": {
+      "additionalProperties": false,
+      "description": "Weighted sum ``\u03a3 c\u1d62\u00b7x\u1d62`` (subtraction is a coefficient of -1).",
+      "properties": {
+        "fn": {
+          "const": "sum",
+          "default": "sum",
+          "title": "Fn",
+          "type": "string"
+        },
+        "terms": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "embedding": "#/$defs/Tokens",
+                "normalize": "#/$defs/Normalize",
+                "payload": "#/$defs/Payload",
+                "project_off": "#/$defs/ProjectOff",
+                "random_orthogonal": "#/$defs/RandomOrthogonal",
+                "readout": "#/$defs/Tokens",
+                "scale": "#/$defs/Scaled",
+                "sum": "#/$defs/Sum",
+                "weights": "#/$defs/Weights"
+              },
+              "propertyName": "fn"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/Tokens"
+              },
+              {
+                "$ref": "#/$defs/Weights"
+              },
+              {
+                "$ref": "#/$defs/Payload"
+              },
+              {
+                "$ref": "#/$defs/Sum"
+              },
+              {
+                "$ref": "#/$defs/Scaled"
+              },
+              {
+                "$ref": "#/$defs/Normalize"
+              },
+              {
+                "$ref": "#/$defs/ProjectOff"
+              },
+              {
+                "$ref": "#/$defs/RandomOrthogonal"
+              }
+            ]
+          },
+          "title": "Terms",
+          "type": "array"
+        },
+        "coefs": {
+          "items": {
+            "type": "number"
+          },
+          "title": "Coefs",
+          "type": "array"
+        }
+      },
+      "required": [
+        "terms",
+        "coefs"
+      ],
+      "title": "Sum",
+      "type": "object"
+    },
+    "TensorResult": {
+      "additionalProperties": false,
+      "properties": {
+        "dtype": {
+          "title": "Dtype",
+          "type": "string"
+        },
+        "shape": {
+          "items": {
+            "type": "integer"
+          },
+          "title": "Shape",
+          "type": "array"
+        },
+        "changed": {
+          "title": "Changed",
+          "type": "integer"
+        },
+        "sha256": {
+          "title": "Sha256",
+          "type": "string"
+        }
+      },
+      "required": [
+        "dtype",
+        "shape",
+        "changed",
+        "sha256"
+      ],
+      "title": "TensorResult",
+      "type": "object"
+    },
+    "Tokens": {
+      "additionalProperties": false,
+      "description": "Token rows of the embedding (``fn='embedding'``) or of the effective readout (``fn='readout'``).\n\nThe readout of token t is its unembedding row times the effective final-norm gain,\n``r(t) = U_t \u2299 (offset + \u03b3)``, where ``offset`` is 1 for one-centered RMSNorm\nfamilies (Gemma, Qwen3.5) and 0 otherwise. ``ids`` is authoritative; ``tokens``\nrecords the human-readable words they came from.",
+      "properties": {
+        "fn": {
+          "enum": [
+            "readout",
+            "embedding"
+          ],
+          "title": "Fn",
+          "type": "string"
+        },
+        "ids": {
+          "items": {
+            "type": "integer"
+          },
+          "title": "Ids",
+          "type": "array"
+        },
+        "tokens": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tokens"
+        },
+        "reduce": {
+          "default": "mean",
+          "enum": [
+            "mean",
+            "sum",
+            "none"
+          ],
+          "title": "Reduce",
+          "type": "string"
+        }
+      },
+      "required": [
+        "fn",
+        "ids"
+      ],
+      "title": "Tokens",
+      "type": "object"
+    },
+    "Weights": {
+      "additionalProperties": false,
+      "description": "A vector read from the weights: a single row/column, or the mean of a block's rows/columns.",
+      "properties": {
+        "fn": {
+          "const": "weights",
+          "default": "weights",
+          "title": "Fn",
+          "type": "string"
+        },
+        "target": {
+          "title": "Target",
+          "type": "string"
+        },
+        "reduce": {
+          "default": "none",
+          "enum": [
+            "none",
+            "mean_cols",
+            "mean_rows"
+          ],
+          "title": "Reduce",
+          "type": "string"
+        },
+        "original": {
+          "default": true,
+          "title": "Original",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "target"
+      ],
+      "title": "Weights",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "wspec": {
+      "default": "0.1",
+      "title": "Wspec",
+      "type": "string"
+    },
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "description": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Description"
+    },
+    "base": {
+      "$ref": "#/$defs/BaseRef"
+    },
+    "numerics": {
+      "$ref": "#/$defs/Numerics"
+    },
+    "ops": {
+      "items": {
+        "discriminator": {
+          "mapping": {
+            "add": "#/$defs/Add",
+            "delta": "#/$defs/Delta",
+            "project_scale": "#/$defs/ProjectScale",
+            "rank1": "#/$defs/Rank1",
+            "scale": "#/$defs/Scale",
+            "set": "#/$defs/Set"
+          },
+          "propertyName": "op"
+        },
+        "oneOf": [
+          {
+            "$ref": "#/$defs/Add"
+          },
+          {
+            "$ref": "#/$defs/Scale"
+          },
+          {
+            "$ref": "#/$defs/Set"
+          },
+          {
+            "$ref": "#/$defs/Rank1"
+          },
+          {
+            "$ref": "#/$defs/ProjectScale"
+          },
+          {
+            "$ref": "#/$defs/Delta"
+          }
+        ]
+      },
+      "title": "Ops",
+      "type": "array"
+    },
+    "result": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Result"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "provenance": {
+      "$ref": "#/$defs/Provenance"
+    }
+  },
+  "required": [
+    "name",
+    "base"
+  ],
+  "title": "Patch",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://weightspec.org/schema/patch-0.1.json"
+}

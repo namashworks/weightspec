@@ -1,0 +1,37 @@
+cff-version: 1.2.0
+message: "If you use WeightSpec, please cite it as below, and cite the weight-space programming papers it builds on."
+title: "WeightSpec: An Open Standard and Runtime for Weight-Space Programming"
+type: software
+authors:
+  - name: "The WeightSpec Authors"
+license: Apache-2.0
+repository-code: "https://github.com/namashworks/weightspec"
+version: 0.1.0a1
+date-released: 2026-11-09
+keywords:
+  - weight-space programming
+  - model editing
+  - mechanistic interpretability
+references:
+  - type: article
+    title: "Exploring Weight-Space Programming: Capabilities, Generalization, and Limitations"
+    authors:
+      - family-names: Hu
+        given-names: Junru
+    year: 2026
+    identifiers:
+      - type: other
+        value: "arXiv:2611.09382"
+  - type: blog
+    title: "Sparks of Weight-Space Programming: LLMs can natively read & write neural network weights"
+    authors:
+      - family-names: Takehi
+        given-names: Rikiya
+      - family-names: Teoh
+        given-names: Jayden
+      - family-names: Zhang
+        given-names: Alex
+      - family-names: Khattab
+        given-names: Omar
+    year: 2026
+    url: "https://rikiyat.github.io/blog/weight-space-programming/"
